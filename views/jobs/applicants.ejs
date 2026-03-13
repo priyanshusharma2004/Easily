@@ -1,0 +1,48 @@
+<%- include('../layouts/header') %>
+
+<div class="back-link"><a href="/jobs/<%= job.id %>">← Back to Job</a></div>
+
+<div class="page-header">
+  <h1>Applicants for: <%= job.jobdesignation %></h1>
+  <span class="badge-count"><%= applicants.length %> Total</span>
+</div>
+
+<% if (applicants.length === 0) { %>
+  <div class="empty-state">
+    <h3>No applicants yet</h3>
+    <p>Share your job posting to attract candidates.</p>
+  </div>
+<% } else { %>
+  <div class="applicants-table-wrapper">
+    <table class="applicants-table">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Contact</th>
+          <th>Resume</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% applicants.forEach((applicant, idx) => { %>
+          <tr>
+            <td><%= idx + 1 %></td>
+            <td><%= applicant.name %></td>
+            <td><a href="mailto:<%= applicant.email %>"><%= applicant.email %></a></td>
+            <td><%= applicant.contact %></td>
+            <td>
+              <% if (applicant.resumePath) { %>
+                <a href="/<%= applicant.resumePath.replace(/\\/g, '/') %>" target="_blank" class="btn btn-sm btn-outline">📄 View</a>
+              <% } else { %>
+                <span class="text-muted">Not provided</span>
+              <% } %>
+            </td>
+          </tr>
+        <% }) %>
+      </tbody>
+    </table>
+  </div>
+<% } %>
+
+<%- include('../layouts/footer') %>

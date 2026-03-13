@@ -1,0 +1,82 @@
+<%- include('../layouts/header') %>
+
+<div class="back-link"><a href="/jobs">← Back to Jobs</a></div>
+
+<div class="job-detail-container">
+  <div class="job-detail-main">
+    <div class="job-detail-header">
+      <div>
+        <span class="job-badge"><%= job.jobcategory %></span>
+        <h1><%= job.jobdesignation %></h1>
+        <p class="job-company">🏢 <%= job.companyname %></p>
+      </div>
+      <% if (user && user.id === job.recruiterId) { %>
+        <div class="job-actions">
+          <a href="/jobs/<%= job.id %>/update" class="btn btn-outline">✏️ Edit</a>
+          <button class="btn btn-danger" onclick="confirmDelete('<%= job.id %>')">🗑️ Delete</button>
+          <a href="/jobs/<%= job.id %>/applicants" class="btn btn-secondary">👥 Applicants (<%= job.applicants.length %>)</a>
+        </div>
+      <% } %>
+    </div>
+
+    <div class="job-meta-grid">
+      <div class="meta-item"><span>📍 Location</span><strong><%= job.joblocation %></strong></div>
+      <div class="meta-item"><span>💰 Salary</span><strong><%= job.salary %></strong></div>
+      <div class="meta-item"><span>📅 Apply By</span><strong><%= job.applyby %></strong></div>
+      <div class="meta-item"><span>🪑 Openings</span><strong><%= job.numberofopenings %></strong></div>
+    </div>
+
+    <div class="job-section">
+      <h3>Skills Required</h3>
+      <div class="skills-list">
+        <% job.skillsrequired.forEach(skill => { %>
+          <span class="skill-tag"><%= skill %></span>
+        <% }) %>
+      </div>
+    </div>
+
+    <div class="job-section">
+      <h3>Posted On</h3>
+      <p><%= new Date(job.jobposted).toLocaleDateString('en-IN', { year:'numeric', month:'long', day:'numeric' }) %></p>
+    </div>
+  </div>
+
+  <div class="apply-sidebar">
+    <div class="apply-card">
+      <h3>Apply for this Job</h3>
+      <form action="/apply/<%= job.id %>" method="POST" enctype="multipart/form-data">
+        <div class="form-group">
+          <label>Full Name</label>
+          <input type="text" name="name" required placeholder="Your name" />
+        </div>
+        <div class="form-group">
+          <label>Email</label>
+          <input type="email" name="email" required placeholder="you@example.com" />
+        </div>
+        <div class="form-group">
+          <label>Contact Number</label>
+          <input type="tel" name="contact" required placeholder="+91 9876543210" />
+        </div>
+        <div class="form-group">
+          <label>Resume (PDF/DOC)</label>
+          <input type="file" name="resume" accept=".pdf,.doc,.docx" />
+        </div>
+        <button type="submit" class="btn btn-primary btn-block">Submit Application</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- Delete confirmation -->
+<div id="deleteModal" class="modal hidden">
+  <div class="modal-box">
+    <h3>Confirm Delete</h3>
+    <p>Are you sure you want to delete this job posting? This cannot be undone.</p>
+    <div class="modal-actions">
+      <button onclick="closeModal()" class="btn btn-outline">Cancel</button>
+      <a id="deleteLink" href="#" class="btn btn-danger">Delete</a>
+    </div>
+  </div>
+</div>
+
+<%- include('../layouts/footer') %>

@@ -1,0 +1,45 @@
+<%- include('../layouts/header') %>
+
+<div class="page-header">
+  <h1>All Job Listings</h1>
+  <% if (user) { %>
+    <a href="/jobs/new" class="btn btn-primary">+ Post a Job</a>
+  <% } %>
+</div>
+
+<% if (search) { %>
+  <p class="search-result">Showing results for: <strong>"<%= search %>"</strong> — <%= jobs.length %> job(s) found</p>
+<% } %>
+
+<% if (jobs.length === 0) { %>
+  <div class="empty-state">
+    <h3>No jobs found</h3>
+    <p>Try a different search or check back later.</p>
+  </div>
+<% } else { %>
+  <div class="jobs-grid">
+    <% jobs.forEach(job => { %>
+      <div class="job-card">
+        <div class="job-card-header">
+          <span class="job-badge"><%= job.jobcategory %></span>
+          <span class="job-date"><%= new Date(job.jobposted).toLocaleDateString() %></span>
+        </div>
+        <h3 class="job-title"><%= job.jobdesignation %></h3>
+        <p class="job-company">🏢 <%= job.companyname %></p>
+        <p class="job-location">📍 <%= job.joblocation %></p>
+        <p class="job-salary">💰 <%= job.salary %></p>
+        <div class="job-skills">
+          <% job.skillsrequired.slice(0,3).forEach(skill => { %>
+            <span class="skill-tag"><%= skill %></span>
+          <% }) %>
+        </div>
+        <div class="job-card-footer">
+          <span class="openings"><%= job.numberofopenings %> opening(s)</span>
+          <a href="/jobs/<%= job.id %>" class="btn btn-primary btn-sm">View Details</a>
+        </div>
+      </div>
+    <% }) %>
+  </div>
+<% } %>
+
+<%- include('../layouts/footer') %>

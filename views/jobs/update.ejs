@@ -1,0 +1,54 @@
+<%- include('../layouts/header') %>
+
+<div class="form-page">
+  <h1>Update Job Posting</h1>
+  <% if (error) { %>
+    <div class="alert alert-error"><%= error %></div>
+  <% } %>
+  <form action="/jobs/<%= job.id %>/update" method="POST" class="job-form">
+    <div class="form-row">
+      <div class="form-group">
+        <label>Job Category</label>
+        <input type="text" name="jobcategory" required value="<%= job.jobcategory %>" />
+      </div>
+      <div class="form-group">
+        <label>Job Designation</label>
+        <input type="text" name="jobdesignation" required value="<%= job.jobdesignation %>" />
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group">
+        <label>Location</label>
+        <input type="text" name="joblocation" required value="<%= job.joblocation %>" />
+      </div>
+      <div class="form-group">
+        <label>Company Name</label>
+        <input type="text" name="companyname" required value="<%= job.companyname %>" />
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group">
+        <label>Salary Range</label>
+        <input type="text" name="salary" required value="<%= job.salary %>" />
+      </div>
+      <div class="form-group">
+        <label>Apply By</label>
+        <input type="date" name="applyby" required value="<%= job.applyby %>" />
+      </div>
+    </div>
+    <div class="form-group">
+      <label>Skills Required <small>(comma-separated)</small></label>
+      <input type="text" name="skillsrequired" required value="<%= job.skillsrequired.join(', ') %>" />
+    </div>
+    <div class="form-group">
+      <label>Number of Openings</label>
+      <input type="number" name="numberofopenings" required min="1" value="<%= job.numberofopenings %>" />
+    </div>
+    <div class="form-actions">
+      <a href="/jobs/<%= job.id %>" class="btn btn-outline">Cancel</a>
+      <button type="submit" class="btn btn-primary" onclick="return confirm('Confirm update?')">Update Job</button>
+    </div>
+  </form>
+</div>
+
+<%- include('../layouts/footer') %>

@@ -1,0 +1,14 @@
+<%- include('../layouts/header') %>
+
+<div class="success-page">
+  <div class="success-icon">✅</div>
+  <h1>Application Submitted!</h1>
+  <p>Thank you, <strong><%= name %></strong>! Your application for <strong><%= job.jobdesignation %></strong> at <strong><%= job.companyname %></strong> has been received.</p>
+  <p>A confirmation email has been sent to your email address.</p>
+  <div class="success-actions">
+    <a href="/jobs" class="btn btn-primary">Browse More Jobs</a>
+    <a href="/jobs/<%= job.id %>" class="btn btn-outline">Back to Job</a>
+  </div>
+</div>
+
+<%- include('../layouts/footer') %>

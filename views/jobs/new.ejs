@@ -1,0 +1,54 @@
+<%- include('../layouts/header') %>
+
+<div class="form-page">
+  <h1>Post a New Job</h1>
+  <% if (error) { %>
+    <div class="alert alert-error"><%= error %></div>
+  <% } %>
+  <form action="/jobs" method="POST" class="job-form">
+    <div class="form-row">
+      <div class="form-group">
+        <label>Job Category</label>
+        <input type="text" name="jobcategory" required placeholder="e.g. Engineering, Marketing" />
+      </div>
+      <div class="form-group">
+        <label>Job Designation</label>
+        <input type="text" name="jobdesignation" required placeholder="e.g. Frontend Developer" />
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group">
+        <label>Location</label>
+        <input type="text" name="joblocation" required placeholder="e.g. Bangalore, Remote" />
+      </div>
+      <div class="form-group">
+        <label>Company Name</label>
+        <input type="text" name="companyname" required placeholder="e.g. Google" />
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group">
+        <label>Salary Range</label>
+        <input type="text" name="salary" required placeholder="e.g. ₹8-12 LPA" />
+      </div>
+      <div class="form-group">
+        <label>Apply By</label>
+        <input type="date" name="applyby" required />
+      </div>
+    </div>
+    <div class="form-group">
+      <label>Skills Required <small>(comma-separated)</small></label>
+      <input type="text" name="skillsrequired" required placeholder="e.g. JavaScript, React, Node.js" />
+    </div>
+    <div class="form-group">
+      <label>Number of Openings</label>
+      <input type="number" name="numberofopenings" required min="1" placeholder="e.g. 3" />
+    </div>
+    <div class="form-actions">
+      <a href="/jobs" class="btn btn-outline">Cancel</a>
+      <button type="submit" class="btn btn-primary">Post Job</button>
+    </div>
+  </form>
+</div>
+
+<%- include('../layouts/footer') %>
